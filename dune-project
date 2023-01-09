@@ -5,9 +5,9 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github vespertine-org/vespertine))
 
-(authors "Author Name")
+(authors "Joseph Martin Giralt")
 
 (maintainers "Maintainer Name")
 
@@ -24,3 +24,4 @@
   (topics "to describe" your project)))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
+(using menhir 2.1)

@@ -1,0 +1,388 @@
+
+I would Like to tell you about the Vespertine programming language.
+The List, The Map, and The Tuple
+
+List, or a LinkedList
+Linked lists hold zero, one, or more elements in the chosen order.
+Lists in Vespertine are specified between square brackets:
+
+[1, "two", 3, :four]
+[1, "two", 3, :four]
+
+Map
+Maps are the "go to" key-value data structure in Vespertine.
+Maps can be created with the %{} syntax, and key-value pairs can be expressed as key => value:
+
+%{}
+%{}
+%{"one" => :two, 3 => "four"}
+%{3 => "four", "one" => :two}
+
+Key-value pairs in a map do not follow any order (that's why the printed map in the example above has a different order than the map that was created).
+
+Maps do not impose any restriction on the key type: anything can be a key in a map. As a key-value structure, maps do not allow duplicated keys. Keys are compared using the exact-equality operator (===/2). If colliding keys are defined in a map literal, the last one prevails.
+
+When the key in a key-value pair is an atom, the key: value shorthand syntax can be used (as in many other special forms):
+
+%{a: 1, b: 2}
+%{a: 1, b: 2}
+If you want to mix the shorthand syntax with =>, the shorthand syntax must come at the end:
+
+%{"hello" => "world", a: 1, b: 2}
+%{:a => 1, :b => 2, "hello" => "world"}
+
+Tuple
+Tuples are intended as fixed-size containers for multiple elements. To manipulate a collection of elements, use a list instead. Enum functions do not work on tuples.
+Tuples are denoted with curly braces:
+
+{}
+{}
+{1, :two, "three"}
+{1, :two, "three"}
+A tuple may contain elements of different types, which are stored contiguously in memory. Accessing any element takes constant time, but modifying a tuple, which produces a shallow copy, takes linear time. Tuples are good for reading data while lists are better for traversals.
+
+
+----------------------
+# I would Like to tell you about the Vespertine programming language.
+
+# comments in this langugae are always preceded with a `#`
+
+# This is a comment
+
+# Strings are wrapped in quotes.
+"Hello, I am a String!"
+
+# This is a atom
+# Atoms are constants whose values are their own name.
+:i_am_an_atom
+
+# Integers
+1
+2
+1_000_000
+
+# Floats
+1.2636363
+0.89883
+0.0009998
+
+# Ranges
+1..3
+
+# The List, The Map, and The Tuple
+
+# List, or a LinkedList
+# Linked lists hold zero, one, or more elements in the chosen order.
+# Lists in Vespertine are specified between square brackets:
+
+[1, "two", 3, :four]
+[1, "two", 3, :four]
+
+# Map
+# Maps are the "go to" key-value data structure in Vespertine.
+# Maps can be created with the %{} syntax, and key-value pairs can be expressed as key => value:
+
+%{}
+%{}
+%{"one" => :two, 3 => "four"}
+%{3 => "four", "one" => :two}
+
+# Key-value pairs in a map do not follow any order (that's why the printed map in the example above has a different order than the map that was created).
+
+# Maps do not impose any restriction on the key type: anything can be a key in a map. As a key-value structure, maps do not allow duplicated keys. Keys are compared using the exact-equality operator (===/2). If colliding keys are defined in a map literal, the last one prevails.
+
+# When the key in a key-value pair is an atom, the key: value shorthand syntax can be used (as in many other special forms):
+
+%{a: 1, b: 2}
+%{a: 1, b: 2}
+# If you want to mix the shorthand syntax with =>, the shorthand syntax must come at the end:
+
+%{"hello" => "world", a: 1, b: 2}
+%{:a => 1, :b => 2, "hello" => "world"}
+
+# Tuple
+# Tuples are intended as fixed-size containers for multiple elements. To manipulate a collection of elements, use a list instead. Enum functions do not work on tuples.
+# Tuples are denoted with curly braces:
+
+{}
+{}
+{1, :two, "three"}
+{1, :two, "three"}
+# A tuple may contain elements of different types, which are stored contiguously in memory. Accessing any element takes constant time, but modifying a tuple, which produces a shallow copy, takes linear time. Tuples are good for reading data while lists are better for traversals.
+
+# define a function that multiplies a number by 2
+let double do: |num| num * 2
+
+# bind a list of numbers
+let numbers, be: [1, 2, 3, 4, 5]
+
+# pipe the numbers list into the double function and assign the result to a new list
+let doubled, be: numbers->map(double)
+
+# the value of doubled should be [2, 4, 6, 8, 10]
+
+# bind the value three
+let three, be: 3
+
+# or bind the value of a map that represents a Strudent
+let student, be: %{first_name: "John", class: "Senior", gpa: 3.6}
+
+# Here is an example of how to define a function with a type definition.
+# The type definition is always above the function definition.
+val concat : 'a list -> 'a list -> 'a list = <fun>
+let concat, do |list_a, list_b|
+  list_a ++ list_b
+end
+
+
+# function
+let add do |x, y|
+x + y
+end
+
+# anonymous function, over multiple lines
+do |x, y|
+  x + 7
+end
+
+# anonymous function, single line
+do: |x, y| x + y
+
+
+# Here is an example of how to define a binding with a type definition.
+# The type definition is always above the binding definition.
+val result : int list = [1,2]
+let result, be: concat([1], [2])
+
+
+# Here is another example of how to define a binding with a type definition.
+# The type definition is always above the binding definition.
+val foo : string = "foo"
+let foo, be: "Foo"
+
+
+# How to bind a value, option 1
+let foo, be: "Foo"
+
+
+# How to bind a value, option 2
+let foo be
+  "Foo"
+end
+
+# How to define a memoized functions
+module Fib where
+
+  let rec fibs memo |number|
+    match number do
+      when 0 then 0
+      when 1 then 1
+      when n then fibs(n - 1) + fibs(n - 2)
+    end
+  end
+end
+
+# The same module with out memoization
+module Fib where
+  let rec fibs do |number|
+    match number do
+      when 0 then 0
+      when 1 then 1
+      when n then fibs(n - 1) + fibs(n - 2)
+    end
+  end
+end
+
+# ocaml -> let n = 2 in n * n;;
+
+# vespertine version 1
+let n be: 2 in n * n
+=> 4
+
+# vespertine version 2
+let n be 2 
+  in n * n
+end
+=> 4
+
+let a be 2 in
+	let b be 3 in
+	  a + b
+  end
+end
+=> 5
+
+# Recursive functions should be marked as such
+let recursive loop do |num|
+  match num do
+  when 5   then 5
+  when num then loop(num + 1)
+  end
+end
+
+# This is an example hello world program, with Effects
+module HelloWorld where
+  from Effects => [effect, _handle]
+  from IO      => [puts]
+
+  let greet do: effect(:puts, ["Hello, World!"])
+end
+
+HelloWorld.greet
+
+
+# This is an example of syntactically valid Vespertine program.
+module SupplyStacks where
+  from Files       => [read_file]
+  from Integers    => [parse_from_string, pred]
+  from Lists       => [join, last, slice, transpose]
+  from Strings     => [split, lines, chars, strip, tr]
+  from Enumerables => [map, each, reduce, each_slice]
+  from Effects     => [handle, effect]
+  From IO          => [puts]
+
+
+  let input, be: read_file('input.txt')->split("\n\n")
+
+  let solve1 do
+    handle do
+      parse_instructions(input[1])
+        ->reduce(parse_stacks(input[0]), process_instruction_9000)
+        ->map(last)
+        ->join
+        ->effect(:puts, [&1])
+    end
+  end
+
+  let solve2
+    handle do
+      parse_instructions(input[1])
+        ->reduce(parse_stacks(input[0]), process_instruction_9001)
+        ->map(last)
+        ->join
+        ->effect(:puts, [&1])
+    end
+  end
+
+  private
+
+  let process_instruction_9000 do |stack, instruction|
+    # stack->tap do |stk|
+    #   stk[instruction[:to]]
+    #     .push(*stk[instruction[:from]].pop(instruction[:count]).reverse)
+    # end
+  end
+
+  let process_instruction_9001 do |stack, instruction|
+    # stack.tap do |stk|
+    #   stk[instruction[:to]]
+    #     .push(*stk[instruction[:from]].pop(instruction[:count]))
+    # end
+  end
+
+  let parse_instructions do |instructions|
+    instructions
+      ->lines
+      ->map(do: |line| line.match(/move\s(?<count>\d+)\sfrom\s(?<from>\d+)\sto\s(?<to>\d+)/))
+      ->map(do |line|  
+        %{
+          count: line[:count]->parse_from_string, 
+          from:  line[:from]->parse_from_string->pred, 
+          to:    line[:to]->parse_from_string->pred
+        }
+      end)
+  end
+
+  let parse_stacks do |stacks|
+    stacks
+      ->lines
+      ->map(join_four_chars)
+      ->slice(..-2)
+      ->transpose
+      ->map(reverse)
+      ->map(do: |stack| stack->reject(empty?)->map(do:|_1| _1->tr('[]', ''))
+  end
+
+  let join_four_chars do |line|
+    line
+      ->chars
+      ->each_slice(4)
+      ->map(join)
+      ->map(strip)
+  end
+end
+
+SupplyStacks.solve1()
+SupplyStacks.solve2()
+
+# here is an example of a fizzbuzz program that uses algebraic effects:
+module FizzBuzz where
+  from Enumerables => [map, reduce, each] 
+  from Maths       => [rem] 
+  from IO          => [puts] 
+  from Integers    => [to_string] 
+  from Effects     => [effect, handle]
+
+  let solve do
+    handle do
+      1..99
+        ->map do: |num| [num->rem(3), num->rem(5), num]
+        ->map(do |item| 
+            match item do
+              when [0, 0, _] then "FizzBuzz"
+              when [0, _, _] then "Fizz"
+              when [_, 0, _] then "Buzz"
+              when [_, _, n] then n->to_string
+            end
+          end)
+        ->print_to_console
+    catch
+      effect(:puts, do |word|
+        if word == "Buzz" do
+          :ok
+        else
+          word->puts
+        end
+      end) 
+    end
+  end
+
+  let solve do
+    handle do
+      1..99
+        ->map(remainders)
+        ->map(match_to_word)
+        ->print_to_console
+    catch
+      effect(:print_to_console, do |word|
+        if word == "Buzz" do
+          :ok
+        else
+          word->puts
+        end
+      end)
+    end
+  end
+
+  eff print_to_console :: {IO.puts}
+  let print_to_console do |word|
+    word->puts
+  end 
+
+  let remainders do |step|
+    [
+      step->rem(3), 
+      step->rem(5), 
+      step,
+    ]
+  end
+
+  let match_to_word do |rem_3 rem_5 number|
+    match item do
+      when [0, 0, _]    then "FizzBuzz"
+      when [0, _, _]    then "Fizz"
+      when [_, 0, _]    then "Buzz"
+      when [_, _, step] then step->to_string
+    end
+  end
+end

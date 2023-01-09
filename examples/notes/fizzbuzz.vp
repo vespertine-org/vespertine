@@ -1,0 +1,141 @@
+module FizzBuzz where
+  from Enumarables => [map, reduce, each] 
+  from Maths       => [rem] 
+  from IO          => [puts] 
+  from Integers    => [to_string] 
+  from Effects     => [effect, handle]
+
+  let solve do
+    handle do
+      1..99
+        ->map do: |num| [num->rem(3), num->rem(5), num]
+        ->map(do |item| 
+            match item do
+              when [0, 0, _] then "FizzBuzz"
+              when [0, _, _] then "Fizz"
+              when [_, 0, _] then "Buzz"
+              when [_, _, n] then n->to_string
+            end
+          end)
+        ->print_to_console
+    end
+  end
+
+  let solve_2 do
+    handle do
+      1..99
+        ->map(remainders)
+        ->map(match_to_word)
+        ->print_to_console
+    end
+  end
+
+  let print_to_console do |word|
+    effect(:puts, [word])
+  end
+
+
+  let remainders do |step|
+    [
+      step->rem(3), 
+      step->rem(5), 
+      step,
+    ]
+  end
+
+  let match_to_word do |rem_3 rem_5 number|
+    match item do
+      when [0, 0, _]    then "FizzBuzz"
+      when [0, _, _]    then "Fizz"
+      when [_, 0, _]    then "Buzz"
+      when [_, _, step] then step->to_string
+    end
+  end
+
+end
+
+
+
+// in ML langs (white space sensitive)
+let add x y = x + y
+
+
+# in vespertine
+let add do |a b|
+  x + y
+end
+ 
+# or
+
+let add do: |a b| a + b
+
+# would take two args
+map(data, function)
+
+let add5 = add(5)
+
+# this
+map([1,2], add5)
+
+# same as
+[1,2]
+  -> map(add5)
+
+# same as
+[1,2]
+  -> map(do: |a| a + 5)
+
+# same as
+[1,2] 
+  -> map(do |a| 
+      a + 5
+    end)
+
+# same as
+[1,2] -> map do |a|
+       a + 5
+     end
+
+
+
+:atom
+list    []
+tuple   {}
+map     %{}
+struct  %User{}
+
+
+[1,2].map {|a| a + 1 }
+
+
+
+let add5 do |a|
+  a + 5
+end
+
+let map = do |iterable, with func|
+  match tail do
+  when [] then []
+  else  
+    let [head | tail] = iterable
+    head ++ map(tail, with: func)
+  end
+end
+
+
+[1,2,3]
+|> map with: add5
+|> 
+
+
+
+# kabab case? maybe?
+let noisy-box-of-donuts do |yell donut-flavor|
+  match donut-flavor.to_sym do
+    when :bavarian-cream  then io.puts("I love this")
+    when :plain, :fruit   then io.puts("I love this, though it is #{donut-flavor}")
+    else _whats-this-shit then io.puts("Ewww, #{donut-flavor} is gross!")
+  end
+end)
+
+noisy-box-of-donuts(yell: "bavarian cream")

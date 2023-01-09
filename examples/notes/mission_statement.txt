@@ -1,0 +1,10 @@
+* Functional
+* Memory safe (memory vaporization? Borrow checking?)
+* Concurrent
+* Easy to read
+* Strongly typed (ADT and AE)
+ - type reconstruction algorithm attempts to never reject a program that could 
+ - type check, if the programmer had written down types. It also attempts never 
+ - to accept a program that cannot possibly type check.
+
+* package manager, testing framework, webserver, should all be apart of the core lib.
