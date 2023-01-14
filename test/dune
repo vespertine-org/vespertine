@@ -5,5 +5,11 @@
  (preprocess
   (pps ppx_jane))
  (lint
-  (pps ppx_jane ppx_js_style -check-doc-comments -annotated-ignores -styler
-    -pretty -dated-deprecation)))
+  (pps
+   ppx_jane
+   ppx_js_style
+   -check-doc-comments
+   -annotated-ignores
+   -styler
+   -pretty
+   -dated-deprecation)))
