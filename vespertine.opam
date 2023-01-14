@@ -26,7 +26,6 @@ build: [
     "@install"
     "@runtest" {with-test}
     "@doc" {with-doc}
-    ocamlformat
   ]
 ]
 dev-repo: "git+https://github.com/vespertine-org/vespertine.git"
