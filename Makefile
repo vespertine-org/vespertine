@@ -22,4 +22,4 @@ format:
 	(dune build @fmt || dune promote)
 
 hook:
-	cp ./hooks/* .git/hooks
+	cp ./.git-hooks/* .git/hooks
