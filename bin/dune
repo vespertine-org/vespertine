@@ -1,4 +1,4 @@
 (executable
  (public_name vespertine)
  (name main)
- (libraries vespertine))
+ (libraries interp))

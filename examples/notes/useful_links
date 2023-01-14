@@ -1,0 +1,22 @@
+# OCaml Resources
+https://cs3110.github.io/textbook/chapters/interp/intro.html
+https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html
+## Testing OCaml
+https://blog.janestreet.com/the-joy-of-expect-tests/
+
+# Toy langugages implemented in OCaml
+https://github.com/boltlang/Bolt
+https://github.com/cara-lang/compiler
+
+# Not Toy Languages in Rust
+https://github.com/YorickPeterse/inko
+
+# GC (or lackof)
+https://slightknack.dev/passerine/vaporization/
+https://koka-lang.github.io/koka/doc/book.html#sec-fbip
+https://github.com/Kindelia/HVM/blob/master/guide/HOW.md
+
+# White Papers
+https://pdxscholar.library.pdx.edu/cgi/viewcontent.cgi?article=1498&context=open_access_etds
+https://rust-hosted-langs.github.io/book/introduction.html
+https://core.ac.uk/download/pdf/81113716.pdf #interaction nets
