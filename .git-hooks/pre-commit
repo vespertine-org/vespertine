@@ -2,7 +2,7 @@
 make format
 
 # Run tests
-make test
+dun runtest
 
 # Check the exit code of the test command
 if [ $? -ne 0 ]; then
