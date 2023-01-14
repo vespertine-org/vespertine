@@ -1,4 +1,12 @@
 #!/bin/sh
 make format
+
+# Run tests
 make test
+
+# Check the exit code of the test command
+if [ $? -ne 0 ]; then
+    echo "Tests failed, commit rejected"
+    exit 1
+fi
 make clean
