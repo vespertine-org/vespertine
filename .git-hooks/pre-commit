@@ -1,4 +1,4 @@
 #!/bin/sh
 make format
 make clean
-make test
+dune runtest
