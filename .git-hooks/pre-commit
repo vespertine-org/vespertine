@@ -1,8 +1,22 @@
 #!/bin/sh
-make format
+
+ echo "Beginning pre-commit hook"
+
+files=$(git diff --name-only --cached)
+
+# Format the files using ocamlformat
+for file in $files; do
+  if [ ${file: -4} == ".ml" ]; then
+    echo "Formatting $file with ocamlformat"
+    ocamlformat --inplace $file
+    git add $file
+  fi
+done
+
+make clean
 
 # Run tests
-dun runtest
+dune runtest
 
 # Check the exit code of the test command
 if [ $? -ne 0 ]; then
